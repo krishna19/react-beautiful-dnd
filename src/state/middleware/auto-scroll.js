@@ -2,12 +2,10 @@
 import type { AutoScroller } from '../auto-scroller/auto-scroller-types';
 import type { State } from '../../types';
 import type { Action, Dispatch, MiddlewareStore } from '../store-types';
+import isActiveDragFinishing from './util/is-active-drag-finishing';
 
 const shouldCancel = (action: Action): boolean =>
-  action.type === 'DROP_ANIMATE' ||
-  action.type === 'DROP' ||
-  action.type === 'DROP_COMPLETE' ||
-  action.type === 'COLLECTION_STARTING';
+  isActiveDragFinishing(action) || action.type === 'COLLECTION_STARTING';
 
 export default (getScroller: () => AutoScroller) => (
   store: MiddlewareStore,
